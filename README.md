@@ -58,6 +58,12 @@ Basic Input/Output System (BIOS) 位 IBM System/2 和 IBM PC 产品提供了软�
 | 0x86 ~ 0xF0 | BASIC 运行时中断         |
 | 0xF1 ~ 0xFF | 为用户程序中断保留       |
 
+## 02H - 不可屏蔽中断 NMI
+
+当看门狗超时有效而且错过了一个时钟中断被检测到时，系统就会产生 NMI，如果此事发生，那么NMI中断处理程序显示 112，指示错过了了一个期望的时钟中断。同样，当 DMA 驱动设备使用总线超过允许的 7.8 微秒，中央仲裁控制点产生一个 NMI 显示 113，指示 DMA 总线超时发生。
+
+当 NMI 发生时，中央仲裁控制点隐式的禁用。NMI 中断处理程序 明确地使得中央仲裁控制点向 90H 端口输出一个 00H。
+
 ## 参考资料
 
 - IBM PS 2 and PC BIOS Interface Technical Reference
