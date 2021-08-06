@@ -50,7 +50,7 @@ panic: action=ask
 keyboard: type=mf, serial_delay=250, paste_delay=100000, user_shortcut=none
 mouse: type=ps2, enabled=false, toggle=ctrl+mbutton
 speaker: enabled=true, mode=system
-parport1: enabled=true, file=none
+parport1: enabled=true, file="parport.out"
 parport2: enabled=false
 com1: enabled=true, mode=null
 com2: enabled=false

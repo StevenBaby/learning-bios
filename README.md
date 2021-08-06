@@ -64,6 +64,12 @@ Basic Input/Output System (BIOS) 位 IBM System/2 和 IBM PC 产品提供了软�
 
 当 NMI 发生时，中央仲裁控制点隐式的禁用。NMI 中断处理程序 明确地使得中央仲裁控制点向 90H 端口输出一个 00H。
 
+## 05H - 打印屏幕
+
+> 该中断在 bochs 中无效
+
+该中断处理程序打印屏幕到打印机 1
+
 ## 参考资料
 
 - IBM PS 2 and PC BIOS Interface Technical Reference

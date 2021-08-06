@@ -1,11 +1,13 @@
+[org 0x7c00]
 
 mov ax, 3
 int 10h
 
-mov ax, 0xb800
-mov ds, ax; 将代码段设置为 0xb800
+xchg bx, bx
 
-mov byte [0], 'T'; 修改屏幕第一个字符为 T
+int 0x5
+
+xchg bx, bx
 
 ; 下面阻塞停下来
 halt:
