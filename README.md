@@ -70,6 +70,73 @@ Basic Input/Output System (BIOS) 位 IBM System/2 和 IBM PC 产品提供了软�
 
 该中断处理程序打印屏幕到打印机 1
 
+## 08H - 系统定时器
+
+通过 bochs 我们可以得到下面的代码该中断函数的二进制字符串：
+
+```bin
+FB 66 50 1E 31 C0 8E D8 A0 40 04 08 C0 74 10 FE
+C8 A2 40 04 75 09 52 BA F2 03 EC 24 CF EE 5A 66
+A1 6C 04 66 40 66 3D B0 00 18 00 72 07 66 31 C0
+FE 06 70 04 66 A3 6C 04 CD 1C FA E8 ED 93 1F 66
+58 CF 
+```
+
+可以转换成十六进制整数，使用 Python 存储成具体的二进制文件
+
+```python
+# 此处内容中间有省略，去掉上面的字符串空格即可
+value = 0xfb66...cf 
+
+# 转换成二进制内容
+content =value.to_bytes(length=66, byteorder='big')
+
+# 写入文件
+with open('int.bin', 'wb') as file:
+   file.write(content)
+```
+
+然后进行反汇编
+
+    objdump -D -b binary -m i8086 -M intel int.bin
+
+得到具体的源码：
+
+```s
+sti
+push   eax
+push   ds
+xor    ax,ax
+mov    ds,ax
+mov    al,ds:0x440
+or     al,al
+je     0x1f
+dec    al
+mov    ds:0x440,al
+jne    0x1f
+push   dx
+mov    dx,0x3f2
+in     al,dx
+and    al,0xcf
+out    dx,al
+pop    dx
+mov    eax,ds:0x46c
+inc    eax
+cmp    eax,0x1800b0
+jb     0x34
+xor    eax,eax
+inc    BYTE PTR ds:0x470
+mov    ds:0x46c,eax
+int    0x1c
+cli    
+call   0x942b
+pop    ds
+pop    eax
+iret
+```
+
+未完待续...
+
 ## 参考资料
 
 - IBM PS 2 and PC BIOS Interface Technical Reference
