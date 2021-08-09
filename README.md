@@ -32,7 +32,7 @@ Basic Input/Output System (BIOS) 位 IBM System/2 和 IBM PC 产品提供了软�
 | 0x15        | 系统服务                 |
 | 0x16        | 键盘                     |
 | 0x17        | 打印机                   |
-| 0x18        | BASIC 驻地               |
+| 0x18        | 启动 BASIC 解释器        |
 | 0x19        | 引导装入程序             |
 | 0x1A        | 系统定时器和实时时钟服务 |
 | 0x1B        | 键盘中断                 |
@@ -197,7 +197,60 @@ iret
 | AH = 1CH       | 保存/恢复视频状态                       |
 | AH = 1DH ~ FFH | 保留                                    |
 
+## 11H - 设备检测
+
+返回设备列表
+
+## 12H - 内存大小检测
+
+返回常规内存大小
+
+## 13H - 固定磁盘
+
+底层磁盘服务
+
+## 14H - 异步通信
+
+串口服务
+
+## 15H - 系统服务
+
+## 16H - 键盘
+
+## 17H - 打印机
+
+## 18H - 启动 BASIC 解释器
+
+在早期的 IBM 机器中，该中断将启动 BASIC 解释器，兼容机没有这个功能，将会有不同的表现，最典型的错误就是没有可启动的磁盘。
+
+## 19H - 引导装入程序
+
+## 1AH - 定时器 / 时钟 / PCI
+
+## 1BH - CTRL BREAK 处理程序
+
+当 `CTRL BREAK` 被按下时，通过 `INT 09H` 调用
+
+## 1CH - 定时器处理程序
+
+通过 `INT 08H` 调用
+
+## 1DH - 视频参数
+
+不可能被调用，简单地指向 VPT(Video Parameter Table) 视频参数表，其中包含视频模式数据。
+
+## 1EH - 磁盘参数
+
+不可能被调用，简单地指向 DPT(Diskette Parameter Table) 磁盘参数表，其中包含了很多磁盘驱动器的信息。
+
+## 1FH - 视频图像字符
+
+不可能被调用，简单地指向 VGCT(Video Graphics Character Table) 视频图像字符表，其中包含了 ASCII 80h ~ FFh
+
+## 70H - 实时时钟中断
+
 ## 参考资料
 
 - IBM PS 2 and PC BIOS Interface Technical Reference
 - <https://bochs.sourceforge.io/doc/docbook/user/bochsrc.html> bochs configure
+- <https://en.wikipedia.org/wiki/BIOS_interrupt_call>
