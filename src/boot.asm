@@ -5,7 +5,7 @@ int 10h
 
 xchg bx, bx
 
-int 0x8
+int 0x9
 
 xchg bx, bx
 
